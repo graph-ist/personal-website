@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<style>
+		@font-face {
+			font-family: 'Rusch';
+			src: url('fonts/rusch-gotico-antiqua.otf') format('opentype');
+		}
+		text {
+			font-family: 'Rusch', 'Times New Roman', serif;
+			fill: #f00;
+		}
+	</style>
+	<text x="50" y="75" font-size="80" text-anchor="middle">g</text>
+</svg>

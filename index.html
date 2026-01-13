@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="description" content="Human-Computer Interaction (HCI), User Experience (UX), User Interface (UI), and User Interaction (IX) design.">
 	<meta name="theme-color" content="#FFF">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,36 +11,120 @@
 	<meta property="og:title" content="Senior Researcher in Interaction Systems">
 	<meta property="og:description" content="Senior Researcher with a PhD in Human-Computer Interaction working at BMW Group.">
 	<meta property="og:url" content="https://graph.ist">
-	<link rel="stylesheet" href="style.css">
+	<meta property="og:image" content="https://graph.ist/assets/images/og-image.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Senior Researcher in Interaction Systems">
+	<meta name="twitter:description" content="Senior Researcher with a PhD in Human-Computer Interaction working at BMW Group.">
+	<meta name="twitter:image" content="https://graph.ist/assets/images/og-image.png">
+	<link rel="canonical" href="https://graph.ist">
+	<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 	<main>
-		<h1>g</h1>
+		<h1 aria-label="graph.ist logo">g</h1>
 		<p>
 			I am a Senior Researcher with a PhD in Human–Computer Interaction and currently work at BMW on interaction systems. 
-			My work <a href="https://orcid.org/0009-0003-9645-7637">&#8599</a> combines design theory, cognitive science, and computer science, with a focus on the epistemic structures of design.
+			My work <a href="https://orcid.org/0009-0003-9645-7637" rel="noopener noreferrer" aria-label="View publications on ORCID">&#8599</a> combines design theory, cognitive science, and computer science, with a focus on the epistemic structures of design.
 			<br><br>
 			Since 2009, I have collaborated on digital and analog projects and have received recognition from the German Design Award.
-			My research notes and theoretical frameworks are documented in my Zettelkasten <a href="https://graph-ist.github.io/zettelkasten/">&#8599</a>, an interdisciplinary networked knowledge base.
-			Open to discussing <a href="mailto:info@graph.ist">&#8599</a> collaborative research and design projects.
+			My research notes and theoretical frameworks are documented in my <span lang="de">Zettelkasten</span> <a href="https://graph-ist.github.io/zettelkasten/" rel="noopener noreferrer" aria-label="Open Zettelkasten knowledge base">&#8599</a>, an interdisciplinary networked knowledge base.
+			Open to discussing <a href="mailto:info@graph.ist" aria-label="Send email to info@graph.ist">&#8599</a> collaborative research and design projects.
 		</p>
 	</main>
 	<footer>
 		<p>
-			This website uses no tracking or analytics (cf. <a href="https://github.com/graph-ist/personal-website">GitHub</a>).<br>
-			For encrypted communication, use the <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/4584AC998F3BABD07EB1D46CC5F082A144B763DB">PGP Public Key</a>.
+			This website uses no tracking or analytics (cf. <a href="https://github.com/graph-ist/personal-website" rel="noopener noreferrer">GitHub</a>).<br>
+			For encrypted communication, use the <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/4584AC998F3BABD07EB1D46CC5F082A144B763DB" rel="noopener noreferrer">PGP Public Key</a>.
 		</p>
 	</footer>
 	<script>
-		document.querySelector('h1').addEventListener('click', function() {
-			const body = document.body;
-			body.classList.toggle('dark-mode');
-			const isDark = body.classList.contains('dark-mode');
-			const themeColor = document.querySelector('meta[name="theme-color"]');
-			const statusBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-			themeColor.setAttribute('content', isDark ? '#000' : '#FFF');
-			statusBar.setAttribute('content', isDark ? 'black-translucent' : 'default');
+		// Calculate sunrise/sunset using solar position algorithm for Munich
+		function getSunTimes(date = new Date()) {
+			const lat = 48.1351, lon = 11.5820; // Munich
+			const rad = Math.PI / 180;
+			const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
+			const decl = -23.45 * Math.cos(rad * 360 / 365 * (dayOfYear + 10));
+			const eqTime = 229.18 * (0.000075 + 0.001868 * Math.cos(rad * 360 / 365 * dayOfYear) 
+				- 0.032077 * Math.sin(rad * 360 / 365 * dayOfYear) 
+				- 0.014615 * Math.cos(2 * rad * 360 / 365 * dayOfYear) 
+				- 0.040849 * Math.sin(2 * rad * 360 / 365 * dayOfYear));
+			const ha = Math.acos(Math.cos(rad * 90.833) / (Math.cos(rad * lat) * Math.cos(rad * decl)) 
+				- Math.tan(rad * lat) * Math.tan(rad * decl)) / rad;
+			const noon = 720 - 4 * lon - eqTime;
+			// Check if DST is active in Europe/Berlin (last Sunday of March to last Sunday of October)
+			const year = date.getFullYear();
+			const marchLast = new Date(year, 2, 31);
+			const dstStart = new Date(year, 2, 31 - marchLast.getDay(), 2, 0);
+			const octLast = new Date(year, 9, 31);
+			const dstEnd = new Date(year, 9, 31 - octLast.getDay(), 3, 0);
+			const isDST = date >= dstStart && date < dstEnd;
+			const munichOffset = isDST ? -120 : -60;
+			return { 
+				sunrise: noon - ha * 4 + munichOffset, 
+				sunset: noon + ha * 4 + munichOffset 
+			};
+		}
+
+		function updateTheme(isDark) {
+			document.body.classList.toggle('dark-mode', isDark);
+			document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#000' : '#FFF');
+			document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').setAttribute('content', isDark ? 'black-translucent' : 'default');
+		}
+
+		function checkDayNight() {
+			if (manualOverride) return;
+			const now = new Date();
+			const { sunrise, sunset } = getSunTimes(now);
+			// Get current time in Munich
+			const munichTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+			const currentMinutes = munichTime.getHours() * 60 + munichTime.getMinutes();
+			const isDark = currentMinutes < sunrise || currentMinutes > sunset;
+			updateTheme(isDark);
+		}
+
+		let manualOverride = false;
+		let intervalId;
+
+		document.addEventListener('DOMContentLoaded', function() {
+			// Remove init class now that JS has taken over
+			document.documentElement.classList.remove('dark-mode-init');
+			
+			// Initialize theme
+			checkDayNight();
+			intervalId = setInterval(checkDayNight, 60000);
+
+			// Manual toggle override
+			document.querySelector('h1').addEventListener('click', function() {
+				manualOverride = true;
+				clearInterval(intervalId);
+				updateTheme(!document.body.classList.contains('dark-mode'));
+			});
 		});
+
+		// Prevent FOUC: check immediately before DOM ready
+		(function() {
+			const now = new Date();
+			const { sunrise, sunset } = getSunTimes(now);
+			const munichTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+			const currentMinutes = munichTime.getHours() * 60 + munichTime.getMinutes();
+			if (currentMinutes < sunrise || currentMinutes > sunset) {
+				document.documentElement.classList.add('dark-mode-init');
+			}
+		})();
 	</script>
+	<noscript>
+		<style>
+			@media (prefers-color-scheme: dark) {
+				body { background-color: #000; }
+				p { color: #FFF; }
+				footer p { color: #999; }
+			}
+		</style>
+	</noscript>
 </body>
 </html>
