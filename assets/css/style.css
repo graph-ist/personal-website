@@ -85,6 +85,7 @@ p {
 	margin: 60px 5vw 0 8vw;
 	font-size: clamp(1.2rem, 3.04vw, 2.4rem);
 	max-width: 80%;
+	text-wrap: balance;
 }
 
 :focus-visible {
