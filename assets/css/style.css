@@ -69,7 +69,7 @@ body.dark-mode p {
 h1 {
 	font-family: 'Rusch', 'Times New Roman', Georgia, serif;
 	color: #f00;
-	font-size: clamp(1.2rem, 3.04vw, 2.4rem);
+	font-size: clamp(1.2rem, 3vw, 2.3rem);
 	margin: 80px 5vw 30px 8vw;
 	font-weight: 400;
 	cursor: pointer;
@@ -83,9 +83,8 @@ p {
 	font-weight: 500;
 	line-height: 1.2;
 	margin: 60px 5vw 0 8vw;
-	font-size: clamp(1.2rem, 3.04vw, 2.4rem);
+	font-size: clamp(1.2rem, 3vw, 2.3rem);
 	max-width: 80%;
-	text-wrap: balance;
 }
 
 :focus-visible {
@@ -129,6 +128,7 @@ body.dark-mode footer p {
 	p, h1 {
 		margin-left: 7vw;
 		margin-right: 4vw;
+		font-size: clamp(1.1rem, 3.4vw, 2.1rem);
 	}
 	
 	p {
@@ -154,7 +154,7 @@ body.dark-mode footer p {
 @media (max-width: 480px) {
 	p, h1 {
 		margin: 60px 3vw 0 6vw;
-		font-size: clamp(1.2rem, 4vw, 2rem);
+		font-size: clamp(1rem, 3.6vw, 1.8rem);
 	}
 	
 	p {
