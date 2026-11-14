@@ -1,6 +1,6 @@
 ## Personal Website
 
-I am a Senior Researcher in Human–Computer Interaction at BMW Group and hold a PhD in Media Informatics. My research ([ORCID](https://orcid.org/0009-0003-9645-7637)) integrates design theory, cognitive science, and computer science, with a particular focus on the epistemic structures of design.
+I am a Senior Researcher in Human–Computer Interaction at BMW Group and hold a PhD in Media Informatics. My research integrates design theory, cognitive science, and computer science, with a particular focus on the epistemic structures of design.
 
 This repository contains my minimalist personal website. The site features a clean, typography-focused design that emphasizes content and accessibility.
 
